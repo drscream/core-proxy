@@ -22,12 +22,13 @@ var argv = require('optimist')
 argv.source      = (typeof(argv.source)      == 'string') ? [argv.source]      : argv.source
 argv.destination = (typeof(argv.destination) == 'string') ? [argv.destination] : argv.destination
 
-
+// Socket error handler
 function errorHandler(err) {
 	var addr = this.address()
 	var self = this
 
 	if(typeof(addr) == 'string') {
+		// Reuse unix socket if possible
 		if(err.code == 'EADDRINUSE') {
 			var testSocket = net.connect(addr, function(){
 				console.log('unixsocket: Socket is in use ', err)
@@ -44,12 +45,15 @@ function errorHandler(err) {
 			})
 		}
 	} else {
+		// Exit if tcp socket already in use
 		console.log('tcpsocket: ', err)
 		process.exit()
 	}
 }
 
+// Socket request handler
 function requestHandler(c) {
+	// Random connection to destination
 	var d = argv.destination[Math.floor(Math.random()*argv.destination.length)]
 	var host = d.split(':')
 	var port = host.pop()
@@ -59,20 +63,19 @@ function requestHandler(c) {
 		c.pipe(client)
 	})
 
+	// Close the connection on error
 	client.on('error', function(err){
 		console.log(err, host, port)
 		c.end()
 	})
-
 	c.on('error', function(err){
 		console.log(err)
 		client.end()
 	})
 }
 
-
+// Listen on all source sockets (tcp and unix)
 var servers = []
-
 for(var i=0; i<argv.source.length; ++i) {
 	var s = argv.source[i]
 	var srv = net.createServer(requestHandler)
@@ -89,8 +92,9 @@ for(var i=0; i<argv.source.length; ++i) {
 	servers.push(srv)
 }
 
+// Remove unix sockets from disk at SIGINT
 process.on('SIGINT', function() {
-	console.log("hallo")
+	console.log("Goodbye")
 	for(var i=0; i<servers.length; ++i) {
 		var s = servers[i]
 		if(typeof(s.address()) == 'string') {
