@@ -1,12 +1,18 @@
 {
 	"name":        "core-proxy",
 	"description": "tcp and unix socket proxy",
-	"version":     "0.0.1",
+	"version":     "0.0.2",
 	"author":      "Thomas Merkel <tm@core.io>",
 	"url":         "https://github.com/drscream/core-proxy",
 	"bin": {
 		"proxy":   "./main.js"
 	},
+	"keywords": [
+		"cli",
+		"proxy",
+		"tcp",
+		"unix"
+	],
 	"dependencies": {
 		"optimist":  "0.6.x"
 	},
