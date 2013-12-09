@@ -4,6 +4,10 @@
 	"version":     "0.0.2",
 	"author":      "Thomas Merkel <tm@core.io>",
 	"url":         "https://github.com/drscream/core-proxy",
+	"repository": {
+		"type": "git",
+		"url":  "https://github.com/drscream/core-proxy.git"
+	},
 	"bin": {
 		"proxy":   "./main.js"
 	},
