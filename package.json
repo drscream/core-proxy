@@ -1,0 +1,19 @@
+{
+	"name":        "core-proxy",
+	"description": "tcp and unix socket proxy",
+	"version":     "0.0.1",
+	"author":      "Thomas Merkel <tm@core.io>",
+	"url":         "https://github.com/drscream/core-proxy",
+	"bin": {
+		"proxy":   "./main.js"
+	},
+	"dependencies": {
+		"optimist":  "0.6.x"
+	},
+	"licenses": [
+		{
+			"name": "BSD",
+			"url": "http://opensource.org/licenses/BSD-3-Clause"
+		}
+	]
+}
