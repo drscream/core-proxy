@@ -58,7 +58,7 @@ function requestHandler(c) {
 	var host = d.split(':')
 	var port = host.pop()
 
-	var client = net.connect({host: host, port: port}, function() {
+	var client = net.connect({host: host.join(':'), port: port}, function() {
 		client.pipe(c)
 		c.pipe(client)
 	})
