@@ -9,7 +9,7 @@ var argv = require('optimist')
 		'source': {
 			alias: 's',
 			demand: true,
-			default: '[::1]:3306',
+			default: '::1:3306',
 		},
 		'destination': {
 			alias: 'd',
@@ -87,7 +87,7 @@ for(var i=0; i<argv.source.length; ++i) {
 		// tcp socket
 		var host = s.split(':')
 		var port = host.pop()
-		srv.listen(port, host)
+		srv.listen(port, host.join(':'))
 	}
 	servers.push(srv)
 }

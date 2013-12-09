@@ -1,7 +1,7 @@
 {
 	"name":        "core-proxy",
 	"description": "tcp and unix socket proxy",
-	"version":     "0.0.2",
+	"version":     "0.0.3",
 	"author":      "Thomas Merkel <tm@core.io>",
 	"url":         "https://github.com/drscream/core-proxy",
 	"repository": {
