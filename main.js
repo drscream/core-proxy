@@ -14,6 +14,11 @@ var argv = require('optimist')
 		'destination': {
 			alias: 'd',
 			demand: true,
+		},
+		'nodelay': {
+			alias: 'n',
+			boolean: true,
+			default: true,
 		}
 	})
 	.argv
@@ -59,6 +64,8 @@ function requestHandler(c) {
 	var port = host.pop()
 
 	var client = net.connect({host: host.join(':'), port: port}, function() {
+		c.setNoDelay(argv.nodelay)
+		client.setNoDelay(argv.nodelay)
 		client.pipe(c)
 		c.pipe(client)
 	})
